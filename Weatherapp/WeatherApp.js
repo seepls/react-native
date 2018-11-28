@@ -1,6 +1,7 @@
 
 import React, {Component} from 'react';
 import { StyleSheet, Text, View,TextInput} from 'react-native';
+import OpenWeatherMap from "./open_weather_map";
 import Forecast from "./Forecast";
 
 class WeatherApp extends Component {
@@ -10,9 +11,13 @@ class WeatherApp extends Component {
     }
 
     _handleTextChange=event=> {
-     this.setState({ zip: event.nativeEvent.text});
+      let zip = event.nativeEvent.text;
+      OpenWeatherMap.fetchForecast(zip).then(forecast =>{
+        this.setState({ forecast: forcast});
+      });
     };
-   
+
+                                             
     render(){
       let content = null ;
       if( this.state.forcast!=null){
@@ -29,6 +34,7 @@ class WeatherApp extends Component {
        <Text style ={styles.welcome}>
          you input {this.state.zip}.
         </Text>
+      {content}
         <TextInput
                 style={styles.input}
                 onSubmitEditing ={this._handleTextChange}
