@@ -1,6 +1,7 @@
 
 import React, {Component} from 'react';
 import { StyleSheet, Text, View,TextInput} from 'react-native';
+import Forecast from "./Forecast";
 
 class WeatherApp extends Component {
     contructor(props) {
@@ -11,8 +12,19 @@ class WeatherApp extends Component {
     _handleTextChange=event=> {
      this.setState({ zip: event.nativeEvent.text});
     };
-
+   
     render(){
+      let content = null ;
+      if( this.state.forcast!=null){
+         content =(
+           <Forecast
+            main={this.state.forecast.main}
+           description={this.state.forecast.description}
+           temp={this.state.forecast.temp}
+           />
+           );
+      }
+    return(
      <View style ={styles.container}>
        <Text style ={styles.welcome}>
          you input {this.state.zip}.
